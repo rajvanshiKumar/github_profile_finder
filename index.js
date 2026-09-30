@@ -115,14 +115,17 @@ function decorateProfileData(details) {
           <strong>${details.public_gists}</strong>
           <span>Gists</span>
         </div>
-         <div class="stat">
-          <strong>${details.email}</strong>
-          <span>Email</span>
+
+        <div class="stat">
+        <span>Email &nbsp;</span>
+          <strong>${details.email || "Not available"}</strong>
+          
         </div>
 
-         <div class="stat">
-          <strong>${details.company}</strong>
-          <span>Company</span>
+        <div class="stat">
+        <span>Company &nbsp;</span>
+          <strong>${details.company || "Not available"}</strong>
+          
         </div>
 
       </div>
@@ -130,7 +133,6 @@ function decorateProfileData(details) {
     </div>
   `;
 
-  // Display profile in profile card
   const profileCard = document.querySelector(".profile-card");
 
   if (profileCard) {
@@ -141,17 +143,20 @@ function decorateProfileData(details) {
 }
 
 function displayRepos(repos) {
-  //console.log("Repositories:", repos);
+  console.log("Repositories:", repos);
 
   repos.forEach((repo) => {
-    //console.log(repo.name);
+    console.log(repo.name);
   });
 }
 
 const searchButton = document.querySelector(".search");
 const userInputField = document.querySelector(".userInputField");
 
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener("click", (event) => {
+  // Prevent page reload if button is inside a form
+  event.preventDefault();
+
   const username = userInputField.value.trim();
 
   // Check empty input
@@ -163,7 +168,7 @@ searchButton.addEventListener("click", () => {
   // Get profile
   getProfileData(username)
     .then((profileData) => {
-    //  console.log("Profile:", profileData);
+      console.log("PROFILE DATA RECEIVED:", profileData);
 
       decorateProfileData(profileData);
 
